@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Bubu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --p: #ff4d6d; --s: #ff85a1; --bg: #fff0f3; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); font-family: 'Montserrat', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        .card { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 2.5rem; border-radius: 30px; 
+            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.15); 
+            text-align: center; width: 92%; max-width: 420px; z-index: 10;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.3rem; color: #2d3436; margin-bottom: 1.5rem; }
+        .emoji { font-size: 4rem; margin-bottom: 1rem; display: block; }
+        
+        .btn-container { display: flex; flex-direction: column; gap: 12px; }
+        .btn { 
+            padding: 16px; border: none; border-radius: 15px; 
+            font-size: 1.1rem; font-weight: 700; cursor: pointer; 
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #primary-yes { background: var(--p); color: white; animation: pulse 2s infinite; }
+        #secondary-yes { background: #f8f9fa; color: #666; font-size: 0.9rem; }
+        #secondary-yes:hover { background: #ffeef2; color: var(--p); }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+        .plan-step { text-align: left; background: #fff8f9; padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--p); opacity: 0; transform: translateX(-10px); }
+        .show { animation: slideIn 0.5s forwards; }
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+
+        .hidden { display: none !important; }
+        .itinerary-title { font-family: 'Dancing Script', cursive; color: var(--p); font-size: 2rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="card" id="main-card">
+        <div id="ask-section">
+            <span class="emoji">👀✨</span>
+            <h1>Hey Dhairya (Bubu),<br>will you be my Valentine?</h1>
+            <div class="btn-container">
+                <button class="btn" id="primary-yes" onclick="initSuccess()">YES, ABSOLUTELY! 💖</button>
+                <button class="btn" id="secondary-yes" onclick="initSuccess()">YES (But in pink) 🌸</button>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #999;">Note: System 403 - 'No' option deprecated.</p>
+        </div>
+
+        <div id="success-section" class="hidden">
+            <span class="emoji">🥂🎉</span>
+            <h2 class="itinerary-title">I knew it! Here is the plan:</h2>
+            <div id="itinerary">
+                <div class="plan-step">📍 I'm coming over to your place!</div>
+                <div class="plan-step">🎈 Valentine's decorations mode: ON</div>
+                <div class="plan-step">🍕 Ordering all our favorite food</div>
+                <div class="plan-step">🍹 Drinks, music, and pure fun</div>
+            </div>
+            <p style="margin-top: 20px; font-weight: 600; color: #2d3436;">Can't wait to see you, Bubu! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function initSuccess() {
+            document.getElementById('ask-section').classList.add('hidden');
+            const success = document.getElementById('success-section');
+            success.classList.remove('hidden');
+            
+            // Confetti Blast
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ff85a1', '#ffffff'] });
+
+            // Staggered reveal of the plan
+            const steps = document.querySelectorAll('.plan-step');
+            steps.forEach((step, idx) => {
+                setTimeout(() => {
+                    step.classList.add('show');
+                }, 400 * (idx + 1));
+            });
+        }
+    </script>
+</body>
+</html>
